@@ -155,3 +155,35 @@ const addRole = function () {
        });
    };
    
+
+   // update the employee using the employeeID
+// role can be updated by specifying the roleId
+const updateEmployee = function () {
+     inquirer
+       .prompt([
+         {
+           type: "input",
+           name: "employeeId",
+           message: "Enter the employee id",
+         },
+         {
+           type: "input",
+           name: "roleId",
+           message: "Enter the role id",
+         },
+       ])
+       .then((answers) => {
+         let { employeeId, roleId } = answers;
+         connection
+           .promise()
+           .query("UPDATE `employee` SET role_id=? WHERE employee.id = ?", [
+             roleId,
+             employeeId,
+           ])
+           .then(([rows, fields]) => {
+             console.log("Employee updated!");
+             main();
+           })
+           .catch(console.log);
+       });
+   };
