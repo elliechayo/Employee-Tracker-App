@@ -187,3 +187,59 @@ const updateEmployee = function () {
            .catch(console.log);
        });
    };
+   
+   const menu = [
+     {
+       type: "list",
+       name: "menu",
+       message: "What would you like to do?",
+       choices: [
+         "View all departments",
+         "View all roles",
+         "View all employees",
+         "Add a department",
+         "Add a role",
+         "Add an employee",
+         "Update an employee role",
+       ],
+       filter(val) {
+         return val.toLowerCase();
+       },
+     },
+   ];
+   
+   function main() {
+     // prompt the menu items
+     inquirer.prompt(menu).then((answer) => {
+       let choice = answer.menu;
+       // clear the console
+       console.clear();
+       // based on user input, call the necessary function
+       switch (choice) {
+         case "view all departments":
+           getDepartments();
+           break;
+         case "view all roles":
+           getRoles();
+           break;
+         case "view all employees":
+           getEmployees();
+           break;
+         case "add a department":
+           addDepartment();
+           break;
+         case "add a role":
+           addRole();
+           break;
+         case "add an employee":
+           addEmployee();
+           break;
+         case "update an employee role":
+           updateEmployee();
+           break;
+       }
+     });
+   }
+   
+   main();
+   
