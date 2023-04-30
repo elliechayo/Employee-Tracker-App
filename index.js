@@ -105,4 +105,53 @@ const addEmployee = function () {
            .catch(console.log);
        });
    };
+   // add a new role to the db
+const addRole = function () {
+     connection
+       .promise()
+       .query("SELECT * FROM `department`")
+       .then(([_rows, _fields]) => {
+         const deptMap = {};
+         // loop through the departments and create a key,value pair
+         for (let i = 0; i < _rows.length; i++) {
+           deptMap[_rows[i].name] = _rows[i].id;
+         }
+   
+         inquirer
+           .prompt([
+             {
+               type: "input",
+               name: "name",
+               message: "Enter name",
+             },
+             {
+               type: "input",
+               name: "salary",
+               message: "Enter salary",
+             },
+             {
+               type: "list",
+               name: "department",
+               message: "Select department",
+               choices: Object.keys(deptMap), // show the keys as the choices
+               filter(val) {
+                 return deptMap[val]; // on selection, use the value as the selected value
+               },
+             },
+           ])
+           .then((answers) => {
+             let { name, salary, department } = answers;
+             connection
+               .promise()
+               .query(
+                 "INSERT INTO `role` (title, salary, department_id) VALUES (?, ?, ?)",
+                 [name, salary, department]
+               )
+               .then(([rows, fields]) => {
+                 console.log("Role Added");
+                 main();
+               });
+           });
+       });
+   };
    
