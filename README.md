@@ -69,8 +69,8 @@ All work done was delineated by adding comments.
 The following video shows the web application appearance and functionality once deployed:
 
 
-![initial disply](/)
 
+[![walkthrough image](/assets/image1.png)](https://drive.google.com/file/d/12B4k7ne3tvFhcldKLwKJcF-DruRrA-3v/view)
 
 
 
