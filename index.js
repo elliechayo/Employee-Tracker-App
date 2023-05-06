@@ -125,7 +125,7 @@ const addRole = function () {
          const deptMap = {};
          // loop through the departments and create a key,value pair
          for (let i = 0; i < _rows.length; i++) {
-           deptMap[_rows[i].name] = _rows[i].id;
+           deptMap[_rows[i].dept_name] = _rows[i].id;
          }
    
          inquirer
@@ -133,12 +133,12 @@ const addRole = function () {
              {
                type: "input",
                name: "name",
-               message: "Enter name",
+               message: "Enter role's name",
              },
              {
                type: "input",
                name: "salary",
-               message: "Enter salary",
+               message: "Enter role's salary",
              },
              {
                type: "list",
