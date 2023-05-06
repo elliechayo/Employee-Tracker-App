@@ -1,3 +1,13 @@
+
+// Import and require express, mysql2, inquirer
+
+const mysql = require('mysql2');
+//const config = require ("./config");
+
+const inquirer = require('inquirer');
+
+const connection = require("./config");
+
 // fetch and return all departments from database
 const getDepartments = function () {
      connection
@@ -9,6 +19,20 @@ const getDepartments = function () {
        })
        .catch(console.log);
    };
+
+      // fetch and return all roles from database
+const getRoles = function () {
+  connection
+    .promise()
+    .query(
+      "SELECT role.id, role.title, role.salary, role.department_id, department.dept_name FROM role INNER JOIN department ON (role.department_id = department.id) ORDER BY role.id ASC"
+    )
+    .then(([rows, fields]) => {
+      console.table(rows);
+      main();
+    })
+    .catch(console.log);
+};
 
    // fetch and return all employees from database
 const getEmployees = function () {
@@ -25,20 +49,7 @@ const getEmployees = function () {
    };
 
 
-   // fetch and return all roles from database
-const getRoles = function () {
-     connection
-       .promise()
-       .query(
-         "SELECT role.id, title, salary, department_id, department.name FROM `role` INNER JOIN department ON (role.department_id = department.id) ORDER BY role.id ASC"
-       )
-       .then(([rows, fields]) => {
-         console.table(rows);
-         main();
-       })
-       .catch(console.log);
-   };
-
+ 
 
    // add a new department to the db
 const addDepartment = function () {
@@ -187,7 +198,7 @@ const updateEmployee = function () {
            .catch(console.log);
        });
    };
-   
+
    const menu = [
      {
        type: "list",
