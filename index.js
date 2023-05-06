@@ -65,7 +65,7 @@ const addDepartment = function () {
          let name = answer.departmentName;
          connection
            .promise()
-           .query("INSERT INTO `department` (name) VALUES (?)", [name])
+           .query("INSERT INTO `department` (dept_name) VALUES (?)", [name])
            .then(([rows, fields]) => {
              console.log("Department Added");
              main();
